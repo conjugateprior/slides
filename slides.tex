@@ -1,0 +1,199 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+\usefonttheme{professionalfonts} % required for mathspec \usepackage{mathspec}
+\usepackage{mathspec}
+\defaultfontfeatures{Mapping=tex-text}
+\setsansfont[BoldItalicFont={* Demi Bold Italic}, 
+             ItalicFont={* Italic}, 
+             BoldFont={* Demi Bold}, 
+             UprightFont={* Regular}]{Avenir Next}
+\setmonofont[Scale = MatchLowercase,Mapping=tex-ansi]{Inconsolata}
+\setmathfont(Digits,Latin,Greek){Avenir Next}
+
+\definecolor{pton}{HTML}{EE7F2D}
+\definecolor{pblue}{HTML}{2d9cee}
+\setbeamercolor{frametitle}{fg=white, bg=pton}
+\metroset{progressbar=foot,numbering=none,titleformat frame=allsmallcaps}
+
+\title{}
+\date{\today} \author{Will Lowe}
+\institute{Department of Politics, Princeton University} 
+
+\usepackage{ctable}
+\usepackage{hyperref}
+\usepackage{dcolumn}
+\usepackage{booktabs}
+
+\newcommand{\ita}{\begin{itemize}}
+\newcommand{\itm}{\item[]}
+\newcommand{\itz}{\end{itemize}}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{bayesnet}
+\tikzstyle{const} = [rectangle, inner sep=4pt, node distance=1]
+\newcommand{\spurious}[3][]{ % \edge [options] {inputs} {outputs}
+  % Connect all nodes #2 to all nodes #3.
+  \foreach \x in {#2} { %
+    \foreach \y in {#3} { %
+      \path (\x) edge [-,#1,dotted] (\y) ;%
+      %\draw[->,#1] (\x) -- (\y) ;%
+    };
+  };
+}
+
+\title{WWS 403 Methods Lab}
+\subtitle{Lecture 3}
+\author{Will Lowe}
+\institute{Department of Politics, Princeton University}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}[t,fragile]\frametitle{Tonight}
+
+The Plan
+\ita
+\itm Announcements: Brief debrief and extra sessions
+\itm Part 1: How to get people to vote?
+\itm Part 2: What should I put in my model? $\beta$
+\itm Lab: Because we love labs
+\itz
+
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Extras: Selection on the dependent variable}
+
+Even when there is no causal link between X and Y
+\begin{center}
+{\large
+\tikz{ % pure collision
+  \node[const]                               (z) {$\text{Z}$};
+  \node[const, above=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, above=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \edge {x,y} {z} ; %
+
+}
+}\end{center}
+conditioning on Z will create spurious association.
+\begin{center}
+{\large
+\tikz{ % pure collision
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, above=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, above=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \edge {x,y} {z} ; %
+  \spurious[thick,draw=pblue]{x}{y}
+
+}
+}\end{center}
+
+
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Selection on the dependent variable}
+
+This is why selecting cases on the dependent variable is problematic.
+
+\pause
+
+Assume Z raises Y but does not affect X
+\begin{center}
+{\large
+\tikz{ % measurement error
+  \node[const]                            (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \edge [thick,draw=pton] {x} {y} ; %
+  \edge {z} {y} ;
+}
+}\end{center}
+Z is not a confounder
+
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Selection on the dependent variable}
+
+However, if we select (S) only units with, say, high Y
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y};
+  \edge {y} {s} ; %
+}
+\end{center}
+Then we will see spurious association between X and Z
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y}
+  \edge {y} {s} ; %
+  \spurious[thick,draw=pblue]{x}{z}
+}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Selection on the dependent variable}
+
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y}
+  \edge {y} {s} ; %
+  \spurious[thick,draw=pblue]{x}{z}
+}
+\end{center}
+This subsample will have more high Z units with low X and more low Z units with high X than the population.
+
+\pause
+
+So effect of X on Y will seem to be \textit{larger} than it really is.
+
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Selection on the dependent variable}
+
+This effect occurs regardless of whether Z is measured.
+
+\pause
+
+Assume Z is \textit{not} measured.  Then it is part of the error term in the  regression
+\begin{equation*}
+Y ~=~ \alpha + X \beta + \epsilon 
+\end{equation*}
+
+\pause 
+
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\epsilon$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y}
+  \edge {y} {s} ; %
+  \spurious[thick,draw=pblue]{x}{z}
+}
+\end{center}
+
+$\epsilon$ is now correlated with X because of the selection, so $\hat{\beta}$ no longer estimates $\beta$.
+
+
+\end{frame}
+\end{document}

@@ -7,10 +7,9 @@ Requires:
 * Inconsolata font 
 * `bayesnet` tikz library (if you want the diagrams)
 
-Metropolis is available from CTAN but may not be pre-installed on a texlive based system like Mactex.
-So install it from [there][1]. If you're using [Mactex][2] the `TeX Live Utility` will do it.  
+Metropolis is available from CTAN but may not be pre-installed on a texlive based system like Mactex. If you're using [Mactex][2] the `TeX Live Utility` will do it.  
 
-If you have no graphical installer, follow the instructions in the CTAN entry and put in your 
+If you have no graphical installer, follow the instructions in the [CTAN entry][1] and put in your 
 *special place*.  (Don't get too excited, on a Mac that's as a subfolder of `~/Library/tex/latex/`, 
 which you may have to create first).
 

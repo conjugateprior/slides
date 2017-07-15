@@ -10,7 +10,7 @@ Requires:
 Metropolis is available from CTAN but may not be pre-installed on a texlive based system like Mactex. If you're using [Mactex][2] the `TeX Live Utility` will do it.  
 
 If you have no graphical installer, follow the instructions in the [CTAN entry][1] and put in your 
-*special place*.  (Don't get too excited, on a Mac that's as a subfolder of `~/Library/tex/latex/`, 
+*special place*.  (Don't get too excited, on a Mac that's as a subfolder of `~/Library/texmf/tex/latex/`, 
 which you may have to create first).
 
 Avenir Next comes with OSX and is the finest sans serif I know for slides.  It's an updated version of [Frutiger's Finest][3] and the official font of the Eurovision Song Contest.  But don't let that put you off.  You could replace with something less round, like Helvetica, but I'll judge you.

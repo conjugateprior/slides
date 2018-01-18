@@ -1,6 +1,6 @@
 ## Slide templates
 
-Requirements:
+### Requirements:
 
 * Latex (even if you're going to use rmarkdown)
 * `metropolis` beamer theme
@@ -24,7 +24,7 @@ Inconsolata is my favourite font for code snippets, or Monaco.  But this one see
 
 You can find the `bayesnet` library for Tikz [here][5].
 
-Usage:
+### Usage:
 
 For latex users: `tex/slides.tex` compiles in your usual latex environment
 provided you use XeLaTeX and have all the requirements noted above.
@@ -33,7 +33,7 @@ For rmarkdown users: `rmd/slides.rmd` compiles when you put it in an RStudio
 window and press the 'knit' button.  If anything goes wrong you then you are 
 probably missing an latex requirement.
 
-Notes:
+### Notes:
 
 `rmd/rmd_teaching_slides.tex` is a template that you can adjust if you don't 
 some detail of my slide style.  It's mostly just latex.  To adjust slide content

@@ -1,0 +1,174 @@
+\documentclass[11pt,professionalfonts,t]{beamer}
+\usetheme{metropolis}
+
+\usepackage[]{graphicx}
+\usepackage[]{color}
+\usepackage{mathspec}
+\setsansfont[BoldItalicFont={* Demi Bold Italic},
+             ItalicFont={* Italic},
+             BoldFont={* Demi Bold},
+             UprightFont={* Regular}]{Avenir Next}
+\setmonofont[Scale = MatchLowercase,Mapping=tex-ansi]{Inconsolata}
+\setmathfont(Digits,Latin,Greek){Avenir Next}
+\definecolor{pton}{HTML}{EE7F2D}
+
+\setbeamercolor{frametitle}{fg=white, bg=pton}
+\metroset{progressbar=foot,numbering=none}
+\setbeamercolor{progress bar in head/foot}{fg=pton,bg=darkgray}
+
+
+% used by stargazer, texreg, etc.
+\usepackage{ctable}
+\usepackage{hyperref}
+\usepackage{dcolumn}
+\usepackage{booktabs}
+
+% for graphical models
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{bayesnet} % requires download
+\tikzstyle{const} = [rectangle, inner sep=4pt, node distance=1]
+\newcommand{\spurious}[3][]{ % \edge [options] {inputs} {outputs}
+  % Connect all nodes #2 to all nodes #3.
+  \foreach \x in {#2} { %
+    \foreach \y in {#3} { %
+      \path (\x) edge [-,#1,dotted] (\y) ;%
+      %\draw[->,#1] (\x) -- (\y) ;%
+    };
+  };
+}
+
+
+% I dislike bullet points
+\usepackage[shortlabels]{enumitem}
+\setlist[itemize]{label={}}
+% switch off the list tightener bc it looks better when we have no bullets
+\providecommand{\tightlist}{}%\setlength{\itemsep}{0pt}}%\setlength{\parskip}{0pt}}
+
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+
+\usepackage[labelformat=empty]{caption}
+
+$if(tables)$
+\usepackage{longtable,booktabs}
+
+
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+$endif$
+
+$if(graphics)$
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+$if(numbersections)$
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$if(lang)$
+\usepackage[$lang$]{babel}
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+$if(institute)$
+\institute{$for(institute)$$institute$$sep$ \and $endfor$}
+$endif$
+\date{$date$}
+
+\begin{document}
+$if(title)$
+\frame{\titlepage}
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+\begin{frame}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+$endif$
+$body$
+
+$if(biblio-files)$
+\begin{frame}[allowframebreaks]{$biblio-title$}
+\printbibliography[heading=none]
+\end{frame}
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}

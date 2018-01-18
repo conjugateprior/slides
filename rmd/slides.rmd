@@ -1,0 +1,152 @@
+---
+title: WWS 403 Methods Lab
+subtitle: Lecture 3
+author: Will Lowe
+institute: Department of Politics, Princeton
+output: 
+  beamer_presentation:
+    keep_tex: true
+    latex_engine: xelatex
+    template: rmd_teaching_slides.tex
+
+---
+
+## Tonight
+
+The Plan
+
+* Announcements: Brief debrief and extra sessions
+* Part 1: How to get people to vote?
+* Part 2: What should I put in my model?
+* Lab: Because we love labs
+
+## Extras: Selection on the dependent variable
+
+Even when there is no causal link between X and Y
+
+\begin{center}
+{\large
+\tikz{ % pure collision
+  \node[const]                               (z) {$\text{Z}$};
+  \node[const, above=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, above=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \edge {x,y} {z} ; %
+  }
+}
+\end{center}
+
+conditioning on Z will create spurious association.
+
+\begin{center}
+{\large
+\tikz{ % pure collision
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, above=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, above=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \edge {x,y} {z} ; %
+  \spurious[thick]{x}{y}
+  }
+}
+\end{center}
+
+## Selection on the dependent variable
+
+This is why selecting cases on the dependent variable is problematic.
+
+. . .
+
+Assume Z raises Y but does not affect X
+
+\begin{center}
+{\large
+\tikz{ % measurement error
+  \node[const]                            (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \edge [thick,draw=pton] {x} {y} ; %
+  \edge {z} {y} ;
+  }
+}
+\end{center}
+
+Z is not a confounder
+
+## Selection on the dependent variable
+
+However, if we select (S) only units with, say, high Y
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y};
+  \edge {y} {s} ; %
+}
+\end{center}
+
+Then we will see spurious association between X and Z
+
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y}
+  \edge {y} {s} ; %
+  \spurious[thick]{x}{z}
+}
+\end{center}
+
+## Selection on the dependent variable
+
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\text{{Z}}$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y}
+  \edge {y} {s} ; %
+  \spurious[thick]{x}{z}
+}
+\end{center}
+
+This subsample will have more high Z units with low X and more low Z units with high X than the population.
+
+. . .
+
+So effect of X on Y will seem to be *larger* than it really is.
+
+## Selection on the dependent variable
+
+This effect occurs regardless of whether Z is measured.
+
+. . .
+
+Assume Z is *not* measured.  Then it is part of the error term in the  regression
+$$
+Y ~=~ \alpha + X \beta + \epsilon 
+$$
+
+. . .
+
+\begin{center}
+\tikz{ % selection on the dependent variable
+  \node[const]                               (z) {$\epsilon$};
+  \node[const, below=of z, xshift=-1.2cm] (x) {$\text{X}$};
+  \node[const, below=of z, xshift=1.2cm]  (y) {$\text{Y}$};
+  \node[const, right=1.2cm of y]            (s) {$\text{S}$};
+  \edge [thick,draw=pton]{x} {y} ; %
+  \edge {z}{y}
+  \edge {y} {s} ; %
+  \spurious[thick]{x}{z}
+}
+\end{center}
+
+$\epsilon$ is now correlated with X because of the selection, so $\hat{\beta}$ no longer estimates $\beta$.
+

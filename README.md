@@ -36,7 +36,7 @@ Once you've got a template you like, it's probably sensible to move it to `~/.pa
 
 *Will Lowe, March 2018* 
 
-(Korhan Korçak keeps me rooted in the present)
+(Korhan Koçak keeps me rooted in the present)
 
 [1]:	https://www.ctan.org/pkg/beamertheme-metropolis?lang=en
 [2]:	https://tug.org/mactex/

@@ -17,12 +17,18 @@ If you have no graphical installer, follow the instructions in
 the [CTAN entry][1] and put in your 
 *special place*.  (Don't get too excited, on a Mac that's any subfolder of `~/Library/texmf/tex/latex/`, which you may have to create first).
 
-Avenir Next comes with OSX and is the finest sans serif I know for slides.  
+Avenir Next comes with OSX and is the finest sans serif I know for slides.
 It's an updated version of [Frutiger's Finest][3] and the official font of the Eurovision Song Contest.  But don't let that put you off.  You could replace with something less round, like Helvetica, but I'll judge you.
 
-Inconsolata is my favourite font for code snippets, or Monaco.  But this one seems to run better with Avenir. You can find a copy [here][4].
+Perhaps you don't have Avenir Next on your operating system.  Then you could look into getting one of these [near matches][4]. 
+Note that if you
+do that you'll want to adjust the `\setsansfont` command in the latex template.  
+Probably it will work fine if you just delete the part in square brackets and put your new font's name in curlies.
 
-You can find the `bayesnet` library for Tikz [here][5].
+Inconsolata is my favourite font for code snippets, or maybe Monaco.  
+But this one seems to run better with Avenir. You can find a copy [here][5].
+
+You can find the `bayesnet` library for Tikz [here][6].
 
 ### Usage:
 
@@ -44,10 +50,11 @@ Once you've got a template you like, it's probably sensible to move it to
 way `slides.rmd` does.
 
 
-*Will Lowe, June 2018*
+*Will Lowe, March 2018* (Korhan Korçak keeps me rooted in the present)
 
 [1]:	https://www.ctan.org/pkg/beamertheme-metropolis?lang=en
 [2]:	https://tug.org/mactex/
 [3]:	https://en.wikipedia.org/wiki/Avenir_(typeface)
-[4]:	http://www.levien.com/type/myfonts/inconsolata.html
-[5]:	https://github.com/jluttine/tikz-bayesnet
+[4]:  https://graphicdesign.stackexchange.com/questions/16036/what-are-google-webfonts-or-typekit-alternatives-to-avenir-next-pro
+[5]:	http://www.levien.com/type/myfonts/inconsolata.html
+[6]:	https://github.com/jluttine/tikz-bayesnet

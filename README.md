@@ -15,7 +15,7 @@ If you have no graphical installer, follow the instructions in the [CTAN entry][
 
 Avenir Next comes with OSX and is the finest sans serif I know for slides.  It's an updated version of [Frutiger's Finest][3] and the official font of the Eurovision Song Contest.  But don't let that put you off.  You could replace with something less round, like Helvetica, but I'll judge you.
 
-Perhaps you don't have Avenir Next on your operating system.  Then you could look into getting one of these [near matches][4].  Note that if you do that you'll want to adjust the `\setsansfont` command in the latex template.  Probably it will work fine if you just delete the part in square brackets and put your new font's name in curlies.
+Perhaps you don't have Avenir Next on your operating system.  Then you could look into getting one of these [near matches][4].  Note that if you do that you'll want to adjust the `\setsansfont` command on line 7 of `rmd/rmd_teaching_slides.tex` and `tex/slides.tex`.  Probably it will work fine if you just delete the part in square brackets and put your new font's name in curlies.
 
 Inconsolata is my favourite font for code snippets, or maybe Monaco.  But this one seems to run better with Avenir. You can find a copy [here][5].
 

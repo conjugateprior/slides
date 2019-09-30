@@ -5,7 +5,7 @@ author: Will Lowe
 institute: Department of Politics, Princeton
 output: 
   beamer_presentation:
-    keep_tex: true
+    keep_tex: false
     latex_engine: xelatex
     template: rmd_teaching_slides.tex
 
